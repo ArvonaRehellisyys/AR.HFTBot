@@ -45,6 +45,7 @@
     <Compile Include="Portfolio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StockOwnership.cs" />
+    <Compile Include="StockSignal.cs" />
     <Compile Include="TickerSymbol.cs" />
     <Compile Include="Trader.cs" />
   </ItemGroup>
