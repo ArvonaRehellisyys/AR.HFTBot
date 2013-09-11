@@ -6,12 +6,14 @@ namespace Core
     public class Trader
     {
         private readonly IStockbroker _stockbroker;
+        private readonly IPortfolio _portfolio;
 
         private readonly List<StockSignal> _stockSignals = new List<StockSignal>();
 
-        public Trader(IStockbroker stockbroker)
+        public Trader(IStockbroker stockbroker, IPortfolio portfolio)
         {
             _stockbroker = stockbroker;
+            _portfolio = portfolio;
         }
 
         public void RegisterStock(TickerSymbol ticker, ISignal signal)
@@ -35,7 +37,7 @@ namespace Core
         {
             if (stockSignal.Assess(DateTime.Now) == 1)
                 _stockbroker.Buy(stockSignal.Ticker, 1);
-            else if (stockSignal.Assess(DateTime.Now) == -1)
+            else if (stockSignal.Assess(DateTime.Now) == -1 && _portfolio.Has(stockSignal.Ticker, 1))
                 _stockbroker.Sell(stockSignal.Ticker, 1);
         }
     }

@@ -7,25 +7,35 @@ namespace Core.UnitTests
     [TestFixture]
     public class TraderTests
     {
+        private IStockbroker _mockBroker;
+        private ISignal _mockSignal;
+        private IPortfolio _mockPortfolio;
+
+        private Trader _trader;
+
+        [SetUp]
+        public void SetUp()
+        {
+            _mockBroker = Substitute.For<IStockbroker>();
+            _mockSignal = Substitute.For<ISignal>();
+            _mockPortfolio = Substitute.For<IPortfolio>();
+
+            _trader = new Trader(_mockBroker, _mockPortfolio);
+        }
+
         [Test]
         public void Trade_BuySignalReceived_BuysStock()
         {
             // Arrange
-            var mockBroker = Substitute.For<IStockbroker>();
-
-            var mockSignal = Substitute.For<ISignal>();
-            mockSignal.Assess(Arg.Any<TickerSymbol>(), Arg.Any<DateTime>())
+            _mockSignal.Assess(Arg.Any<TickerSymbol>(), Arg.Any<DateTime>())
                       .Returns(1);
 
-
             // Act
-            var trader = new Trader(mockBroker);
-            trader.RegisterStock(new TickerSymbol { Name = "AAPL" }, mockSignal);
-            trader.Trade();
-
+            _trader.RegisterStock(new TickerSymbol { Name = "AAPL" }, _mockSignal);
+            _trader.Trade();
 
             // Assert
-            mockBroker.Received().Buy(Arg.Is<TickerSymbol>(x => x.Name == "AAPL"),
+            _mockBroker.Received().Buy(Arg.Is<TickerSymbol>(x => x.Name == "AAPL"),
                                       Arg.Is(1));
         }
 
@@ -33,22 +43,35 @@ namespace Core.UnitTests
         public void Trade_SellSignalReceived_SellsStock()
         {
             // Arrange
-            var mockBroker = Substitute.For<IStockbroker>();
-
-            var mockSignal = Substitute.For<ISignal>();
-            mockSignal.Assess(Arg.Any<TickerSymbol>(), Arg.Any<DateTime>())
+            _mockSignal.Assess(Arg.Any<TickerSymbol>(), Arg.Any<DateTime>())
                       .Returns(-1);
-
+            _mockPortfolio.Has(Arg.Is<TickerSymbol>(x => x.Name == "NOK"), 1)
+                          .Returns(true);
 
             // Act
-            var trader = new Trader(mockBroker);
-            trader.RegisterStock(new TickerSymbol { Name = "NOK" }, mockSignal);
-            trader.Trade();
+            _trader.RegisterStock(new TickerSymbol { Name = "NOK" }, _mockSignal);
+            _trader.Trade();
 
 
             // Assert
-            mockBroker.Received().Sell(Arg.Is<TickerSymbol>(x => x.Name == "NOK"),
+            _mockBroker.Received().Sell(Arg.Is<TickerSymbol>(x => x.Name == "NOK"),
                                        Arg.Is(1));
+        }
+
+        [Test]
+        public void Trade_NoStocksOwned_CannotSellStock()
+        {
+            // Arrange
+            _mockSignal.Assess(Arg.Any<TickerSymbol>(), Arg.Any<DateTime>())
+                      .Returns(-1);
+
+            // Act
+            _trader.RegisterStock(new TickerSymbol { Name = "NOK" }, _mockSignal);
+            _trader.Trade();
+
+
+            // Assert
+            _mockBroker.DidNotReceive().Sell(Arg.Any<TickerSymbol>(), Arg.Any<int>());
         }
     }
 }

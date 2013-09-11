@@ -51,5 +51,28 @@ namespace Core.UnitTests
                 }
             });
         }
+
+        [Test]
+        public void Has_OwnsNothing_ReturnsFalse()
+        {
+            bool result = _portfolio.Has(new TickerSymbol { Name = "NOK" }, 1);
+            result.Should().BeFalse();
+        }
+
+        [Test]
+        public void Has_OwnsEnoughStock_ReturnsTrue()
+        {
+            _portfolio.Add(new TickerSymbol { Name = "NOK" }, 1);
+            bool result = _portfolio.Has(new TickerSymbol { Name = "NOK" }, 1);
+            result.Should().BeTrue();
+        }
+
+        [Test]
+        public void Has_OwnsOneStock_DoesntHaveTwoStocks()
+        {
+            _portfolio.Add(new TickerSymbol { Name = "NOK" }, 1);
+            bool result = _portfolio.Has(new TickerSymbol { Name = "NOK" }, 2);
+            result.Should().BeFalse();
+        }
     }
 }

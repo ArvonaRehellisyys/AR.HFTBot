@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Core
 {
-    public class Portfolio
+    public class Portfolio : IPortfolio
     {
         public List<StockOwnership> Owned { get; set; }
 
@@ -14,7 +14,7 @@ namespace Core
 
         public void Add(TickerSymbol tickerSymbol, int amount)
         {
-            var previous = Owned.FirstOrDefault(x => x.Ticker.Name == tickerSymbol.Name);
+            var previous = FindOwnership(tickerSymbol);
             if (previous != null)
             {
                 previous.Amount += amount;
@@ -26,6 +26,17 @@ namespace Core
                 Ticker = tickerSymbol,
                 Amount = amount
             });
+        }
+
+        public bool Has(TickerSymbol tickerSymbol, int amount)
+        {
+            var ownership = FindOwnership(tickerSymbol);
+            return ownership != null && ownership.Amount >= amount;
+        }
+
+        private StockOwnership FindOwnership(TickerSymbol tickerSymbol)
+        {
+            return Owned.FirstOrDefault(x => x.Ticker.Name == tickerSymbol.Name);
         }
     }
 }

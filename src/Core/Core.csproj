@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IPortfolio.cs" />
     <Compile Include="ISignal.cs" />
     <Compile Include="IStockbroker.cs" />
     <Compile Include="Portfolio.cs" />
