@@ -43,6 +43,7 @@
     <Compile Include="IStockbroker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TickerSymbol.cs" />
+    <Compile Include="Trader.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
