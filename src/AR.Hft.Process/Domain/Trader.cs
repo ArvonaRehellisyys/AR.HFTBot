@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core
+namespace AR.Hft.Process.Domain
 {
     public class Trader
     {

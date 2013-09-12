@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Core
+namespace AR.Hft.Process.Domain
 {
     public class Portfolio : IPortfolio
     {

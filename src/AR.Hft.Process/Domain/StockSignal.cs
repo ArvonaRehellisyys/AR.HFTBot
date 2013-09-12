@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Core
+namespace AR.Hft.Process.Domain
 {
     public class StockSignal
     {
