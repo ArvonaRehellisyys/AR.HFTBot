@@ -1,4 +1,5 @@
 ﻿using System;
+using AR.Hft.Process.Domain;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;

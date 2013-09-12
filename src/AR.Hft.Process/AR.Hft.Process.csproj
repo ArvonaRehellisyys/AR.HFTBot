@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>7f38a50f-5870-4336-b6f1-78cdde53b01e</ProjectGuid>
+    <ProjectGuid>{204C05CB-38F1-4C20-A476-7A99CFB63C01}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AR.Hft.Process</RootNamespace>
@@ -41,6 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\IPortfolio.cs" />
+    <Compile Include="Domain\ISignal.cs" />
+    <Compile Include="Domain\IStockbroker.cs" />
+    <Compile Include="Domain\Portfolio.cs" />
+    <Compile Include="Domain\StockOwnership.cs" />
+    <Compile Include="Domain\StockSignal.cs" />
+    <Compile Include="Domain\TickerSymbol.cs" />
+    <Compile Include="Domain\Trader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

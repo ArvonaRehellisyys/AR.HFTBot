@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Core
+namespace AR.Hft.Process.Domain
 {
     public interface IPortfolio
     {

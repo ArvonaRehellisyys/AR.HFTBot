@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AR.Hft.Process.Domain;
 using FluentAssertions;
 using NUnit.Framework;
 
