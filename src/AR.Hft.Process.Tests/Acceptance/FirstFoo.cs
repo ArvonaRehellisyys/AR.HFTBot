@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Security.Cryptography.X509Certificates;
 using AR.Hft.Process.Domain;
 using NSubstitute;
 using NUnit.Framework;
@@ -17,21 +15,6 @@ namespace AR.Hft.Process.Tests.Acceptance
             
         }
 
-        private class Handler
-        {
-            private readonly Trader _trader;
-
-            public Handler(Trader trader)
-            {
-                _trader = trader;
-            }
-
-            public void Run(StockMessage message)
-            {
-                   
-            }
-        }
-
         [Test]
         public void Foo()
         {
@@ -42,11 +25,15 @@ namespace AR.Hft.Process.Tests.Acceptance
                 new StockMessage() {Name = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
             };
 
-            var nokSignal = new StockSignal(history);
+            var nokSignal = new StockSignal(history, "NOK");
+            var jormaSignal = new StockSignal(history, "JORMA");
 
             var portfolio = new Portfolio();
-            var stockBroker = new StockBroker();
+            var stockBroker = Substitute.For<IStockbroker>();
             var trader = new Trader(stockBroker, portfolio);
+
+            trader.Register(nokSignal);
+            trader.Register(jormaSignal);
 
             var message = new StockMessage
             {
@@ -56,9 +43,11 @@ namespace AR.Hft.Process.Tests.Acceptance
                 Time = now
             };
 
-            var boo = new Handler(trader);
-            boo.Run(message);
+            history.Add(message);
 
+            trader.Trade();
+
+            stockBroker.Received().Buy("NOK", 1);
         }
     }
 }

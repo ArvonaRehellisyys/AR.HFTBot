@@ -5,17 +5,16 @@ namespace AR.Hft.Process.Domain
 {
     public class StockSignal : ISignal
     {
-        public StockSignal(List<StockMessage> stockHistory)
+        private readonly List<StockMessage> _stockHistory;
+
+        public StockSignal(List<StockMessage> stockHistory, string stock)
         {
-            
+            _stockHistory = stockHistory;
         }
 
-        public StockMessage Ticker { get; set; }
-        public ISignal Signal { get; set; }
-
-        public int Assess(string symbol)
+        public Assessment Assess()
         {
-            throw new NotImplementedException();
+            return new Assessment { Symbol = "NOK", Recommendation = 0.5};
         }
     }
 }

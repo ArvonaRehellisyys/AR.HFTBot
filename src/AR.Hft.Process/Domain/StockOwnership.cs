@@ -2,7 +2,7 @@
 {
     public class StockOwnership
     {
-        public StockMessage Ticker { get; set; }
+        public string Symbol { get; set; }
         public int Amount { get; set; }
     }
 }
