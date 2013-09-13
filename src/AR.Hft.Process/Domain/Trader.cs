@@ -18,7 +18,7 @@ namespace AR.Hft.Process.Domain
             _portfolio = portfolio;
         }
 
-        public void RegisterStock(ISignal signal)
+        public void Register(ISignal signal)
         {
             _stockSignals.Add(signal);
         }
@@ -27,12 +27,16 @@ namespace AR.Hft.Process.Domain
         {
             foreach (var stockSignal in _stockSignals)
             {
-                ProcessSignal(stockSignal);
+                var assesment = stockSignal.Assess();
+                if (assesment.Recommendation > 0)
+                {
+                    _stockbroker.Buy(assesment.Symbol, 1);
+                }
+                else
+                {
+                    _stockbroker.Sell(assesment.Symbol, 1);
+                }
             }
-        }
-
-        private void ProcessSignal(ISignal stockSignal)
-        {
         }
     }
 }

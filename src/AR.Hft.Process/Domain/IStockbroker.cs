@@ -2,19 +2,19 @@
 {
     public interface IStockbroker
     {
-        bool Buy(StockMessage ticker, int amount);
-        bool Sell(StockMessage ticker, int amount);
+        bool Buy(string symbol, int amount);
+        bool Sell(string symbol, int amount);
         int GetPrice(StockMessage stockMessage);
     }
 
     public class StockBroker : IStockbroker
     {
-        public bool Buy(StockMessage ticker, int amount)
+        public bool Buy(string symbol, int amount)
         {
             throw new System.NotImplementedException();
         }
 
-        public bool Sell(StockMessage ticker, int amount)
+        public bool Sell(string symbol, int amount)
         {
             throw new System.NotImplementedException();
         }
