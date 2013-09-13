@@ -25,13 +25,13 @@ namespace AR.Hft.Process.Tests.UnitTests
         [Test]
         public void Add_NoneOwnedPreviously_OneOwnedNow()
         {
-            _portfolio.Add(new StockMessage { Name = "NOK" }, 1);
+            _portfolio.Add("NOK", 1);
 
             _portfolio.Owned.ShouldBeEquivalentTo(new List<StockOwnership>
             {
                 new StockOwnership
                 {
-                    Ticker = new StockMessage { Name = "NOK" },
+                    Symbol = "NOK",
                     Amount = 1
                 }
             });
@@ -40,14 +40,14 @@ namespace AR.Hft.Process.Tests.UnitTests
         [Test]
         public void Add_OneOwnedPreviously_TwoOwnedNow()
         {
-            _portfolio.Add(new StockMessage { Name = "NOK" }, 1);
-            _portfolio.Add(new StockMessage { Name = "NOK" }, 1);
+            _portfolio.Add("NOK", 1);
+            _portfolio.Add("NOK", 1);
 
             _portfolio.Owned.ShouldBeEquivalentTo(new List<StockOwnership>
             {
                 new StockOwnership
                 {
-                    Ticker = new StockMessage { Name = "NOK" },
+                    Symbol = "NOK",
                     Amount = 2
                 }
             });
@@ -56,23 +56,23 @@ namespace AR.Hft.Process.Tests.UnitTests
         [Test]
         public void Has_OwnsNothing_ReturnsFalse()
         {
-            bool result = _portfolio.Has(new StockMessage { Name = "NOK" }, 1);
+            bool result = _portfolio.Has("NOK", 1);
             result.Should().BeFalse();
         }
 
         [Test]
         public void Has_OwnsEnoughStock_ReturnsTrue()
         {
-            _portfolio.Add(new StockMessage { Name = "NOK" }, 1);
-            bool result = _portfolio.Has(new StockMessage { Name = "NOK" }, 1);
+            _portfolio.Add("NOK", 1);
+            bool result = _portfolio.Has("NOK", 1);
             result.Should().BeTrue();
         }
 
         [Test]
         public void Has_OwnsOneStock_DoesntHaveTwoStocks()
         {
-            _portfolio.Add(new StockMessage { Name = "NOK" }, 1);
-            bool result = _portfolio.Has(new StockMessage { Name = "NOK" }, 2);
+            _portfolio.Add("NOK", 1);
+            bool result = _portfolio.Has("NOK", 2);
             result.Should().BeFalse();
         }
     }

@@ -14,7 +14,7 @@ namespace AR.Hft.Process.Domain
 
         public Assessment Assess()
         {
-            return new Assessment();
+            return new Assessment { Symbol = "NOK", Recommendation = 0.5};
         }
     }
 }

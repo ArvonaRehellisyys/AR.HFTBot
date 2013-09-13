@@ -5,7 +5,7 @@ namespace AR.Hft.Process.Domain
 {
     public class Trader
     {
-        public int Balance { get; set; }
+        public double Balance { get; set; }
 
         private readonly IStockbroker _stockbroker;
         private readonly IPortfolio _portfolio;
@@ -28,13 +28,14 @@ namespace AR.Hft.Process.Domain
             foreach (var stockSignal in _stockSignals)
             {
                 var assesment = stockSignal.Assess();
+                
                 if (assesment.Recommendation > 0)
                 {
-                    _stockbroker.Buy(assesment.Symbol, 1);
+                    Balance -= _stockbroker.Buy(assesment.Symbol, 1);
                 }
-                else
+                else if (assesment.Recommendation < 0)
                 {
-                    _stockbroker.Sell(assesment.Symbol, 1);
+                    Balance += _stockbroker.Sell(assesment.Symbol, 1);
                 }
             }
         }

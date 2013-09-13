@@ -46,6 +46,8 @@ namespace AR.Hft.Process.Tests.Acceptance
             history.Add(message);
 
             trader.Trade();
+
+            stockBroker.Received().Buy("NOK", 1);
         }
     }
 }
