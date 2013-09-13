@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.Hft.Process.Tests", "AR.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AR.Hft.Analytics.GUI", "AR.Hft.Analytics.GUI\AR.Hft.Analytics.GUI.csproj", "{384830F1-223F-47FB-80CB-13A25749A726}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockValueReader", "StockValueReader\StockValueReader.csproj", "{79048CA4-304C-424F-BE51-E38E26B708BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{384830F1-223F-47FB-80CB-13A25749A726}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{384830F1-223F-47FB-80CB-13A25749A726}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{384830F1-223F-47FB-80CB-13A25749A726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79048CA4-304C-424F-BE51-E38E26B708BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79048CA4-304C-424F-BE51-E38E26B708BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79048CA4-304C-424F-BE51-E38E26B708BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79048CA4-304C-424F-BE51-E38E26B708BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
