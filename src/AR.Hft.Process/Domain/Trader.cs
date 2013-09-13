@@ -33,35 +33,6 @@ namespace AR.Hft.Process.Domain
 
         private void ProcessSignal(ISignal stockSignal)
         {
-            if (ShouldBuy(stockSignal) && HaveMoney(stockSignal))
-            {
-                _stockbroker.Buy(stockSignal.Ticker, 1);
-            }
-            else if (ShouldSell(stockSignal) && HaveStock(stockSignal))
-            {
-                _stockbroker.Sell(stockSignal.Ticker, 1);
-                Balance += _stockbroker.GetPrice(stockSignal.Ticker);
-            }
-        }
-
-        private bool HaveStock(StockSignal stockSignal)
-        {
-            return _portfolio.Has(stockSignal.Ticker, 1);
-        }
-
-        private static bool ShouldSell(StockSignal stockSignal)
-        {
-            return stockSignal.Assess(DateTime.Now) == -1;
-        }
-
-        private bool HaveMoney(StockSignal stockSignal)
-        {
-            return _stockbroker.GetPrice(stockSignal.Ticker) <= Balance;
-        }
-
-        private static bool ShouldBuy(StockSignal stockSignal)
-        {
-            return stockSignal.Assess(DateTime.Now) == 1;
         }
     }
 }
