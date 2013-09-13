@@ -8,10 +8,11 @@ function GetFromYahooApiToCsv($File, $Interval) {
 
         $data = $content.query.results.ChildNodes | Select-Object AskRealTime, BidRealTime, Symbol | Add-Member -NotePropertyValue (Get-Date) -NotePropertyName "Time" -PassThru
 
+        
         $data | Export-Csv $File -Append
 
         Sleep $Interval
     }
 }
 
-GetFromYahooApiToCsv ".\Data\YahooApi.00.csv" (60*10)
+GetFromYahooApiToCsv ".\Data\YahooApi.00.csv" (60*1)

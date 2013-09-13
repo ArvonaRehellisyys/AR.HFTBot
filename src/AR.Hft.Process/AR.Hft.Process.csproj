@@ -41,13 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Domain\Assessment.cs" />
     <Compile Include="Domain\IPortfolio.cs" />
     <Compile Include="Domain\ISignal.cs" />
     <Compile Include="Domain\IStockbroker.cs" />
     <Compile Include="Domain\Portfolio.cs" />
     <Compile Include="Domain\StockOwnership.cs" />
     <Compile Include="Domain\StockSignal.cs" />
-    <Compile Include="Domain\TickerSymbol.cs" />
+    <Compile Include="Domain\StockMessage.cs" />
     <Compile Include="Domain\Trader.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

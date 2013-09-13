@@ -10,7 +10,7 @@ namespace AR.Hft.Process.Domain
         private readonly IStockbroker _stockbroker;
         private readonly IPortfolio _portfolio;
 
-        private readonly List<StockSignal> _stockSignals = new List<StockSignal>();
+        private readonly List<ISignal> _stockSignals = new List<ISignal>();
 
         public Trader(IStockbroker stockbroker, IPortfolio portfolio)
         {
@@ -18,13 +18,9 @@ namespace AR.Hft.Process.Domain
             _portfolio = portfolio;
         }
 
-        public void RegisterStock(TickerSymbol ticker, ISignal signal)
+        public void RegisterStock(ISignal signal)
         {
-            _stockSignals.Add(new StockSignal
-            {
-                Ticker = ticker,
-                Signal = signal
-            });
+            _stockSignals.Add(signal);
         }
 
         public void Trade()
@@ -35,7 +31,7 @@ namespace AR.Hft.Process.Domain
             }
         }
 
-        private void ProcessSignal(StockSignal stockSignal)
+        private void ProcessSignal(ISignal stockSignal)
         {
             if (ShouldBuy(stockSignal) && HaveMoney(stockSignal))
             {

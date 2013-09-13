@@ -12,9 +12,9 @@ namespace AR.Hft.Process.Domain
             Owned = new List<StockOwnership>();
         }
 
-        public void Add(TickerSymbol tickerSymbol, int amount)
+        public void Add(StockMessage stockMessage, int amount)
         {
-            var previous = FindOwnership(tickerSymbol);
+            var previous = FindOwnership(stockMessage);
             if (previous != null)
             {
                 previous.Amount += amount;
@@ -23,20 +23,20 @@ namespace AR.Hft.Process.Domain
 
             Owned.Add(new StockOwnership
             {
-                Ticker = tickerSymbol,
+                Ticker = stockMessage,
                 Amount = amount
             });
         }
 
-        public bool Has(TickerSymbol tickerSymbol, int amount)
+        public bool Has(StockMessage stockMessage, int amount)
         {
-            var ownership = FindOwnership(tickerSymbol);
+            var ownership = FindOwnership(stockMessage);
             return ownership != null && ownership.Amount >= amount;
         }
 
-        private StockOwnership FindOwnership(TickerSymbol tickerSymbol)
+        private StockOwnership FindOwnership(StockMessage stockMessage)
         {
-            return Owned.FirstOrDefault(x => x.Ticker.Name == tickerSymbol.Name);
+            return Owned.FirstOrDefault(x => x.Ticker.Name == stockMessage.Name);
         }
     }
 }

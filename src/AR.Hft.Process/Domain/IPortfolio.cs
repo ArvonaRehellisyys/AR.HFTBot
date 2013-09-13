@@ -5,7 +5,7 @@ namespace AR.Hft.Process.Domain
     public interface IPortfolio
     {
         List<StockOwnership> Owned { get; set; }
-        void Add(TickerSymbol tickerSymbol, int amount);
-        bool Has(TickerSymbol tickerSymbol, int amount);
+        void Add(StockMessage stockMessage, int amount);
+        bool Has(StockMessage stockMessage, int amount);
     }
 }
