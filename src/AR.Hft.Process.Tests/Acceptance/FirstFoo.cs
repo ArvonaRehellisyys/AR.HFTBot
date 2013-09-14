@@ -22,7 +22,7 @@ namespace AR.Hft.Process.Tests.Acceptance
 
             var history = new List<StockMessage>
             {
-                new StockMessage() {Name = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
+                new StockMessage() {Symbol = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
             };
 
             var nokSignal = new StockSignal(history, "NOK");
@@ -37,7 +37,7 @@ namespace AR.Hft.Process.Tests.Acceptance
 
             var message = new StockMessage
             {
-                Name = "NOK",
+                Symbol = "NOK",
                 Bid = 6.54,
                 Ask = 6.70,
                 Time = now
