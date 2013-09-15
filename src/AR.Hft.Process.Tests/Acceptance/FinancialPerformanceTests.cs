@@ -41,7 +41,7 @@ namespace AR.Hft.Process.Tests.Acceptance
             stockBroker.CurrentTime = now.AddMinutes(-5);
             for (int i = 0; i < 5; i++)
             {
-                stockBroker.CurrentTime = stockBroker.CurrentTime.AddMinutes(1);
+                stockBroker.CurrentTime = stockBroker.CurrentTime.AddMinutes(1); 
                 trader.Trade();
             }
 

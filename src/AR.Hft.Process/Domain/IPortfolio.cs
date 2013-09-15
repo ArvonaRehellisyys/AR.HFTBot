@@ -6,6 +6,7 @@ namespace AR.Hft.Process.Domain
     {
         List<StockOwnership> Owned { get; set; }
         void Add(string symbol, int amount);
+        void Remove(string symbol, int amount);
         bool Has(string symbol, int amount);
     }
 }

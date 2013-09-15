@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace AR.Hft.Process.Domain
@@ -26,6 +27,15 @@ namespace AR.Hft.Process.Domain
                 Symbol = symbol,
                 Amount = amount
             });
+        }
+
+        public void Remove(string symbol, int amount)
+        {
+            if (!Has(symbol, amount))
+                throw new ArgumentException("Not enough of " + symbol + ". Only " + amount + " stocks available.");
+
+            var previous = FindOwnership(symbol);
+            previous.Amount -= amount;
         }
 
         public bool Has(string symbol, int amount)

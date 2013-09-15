@@ -33,7 +33,7 @@ namespace AR.Hft.Process.Tests.UnitTests
             _mockBroker.GetPrice("AAPL")
                        .Returns(100);
             _mockSignal.Assess()
-                       .Returns(new Assessment());
+                       .Returns(new Assessment { Recommendation = 1, Symbol = "AAPL" });
 
             // Act
             _trader.Register(_mockSignal);
@@ -41,6 +41,7 @@ namespace AR.Hft.Process.Tests.UnitTests
 
             // Assert
             _mockBroker.DidNotReceive().Buy(Arg.Any<string>(), Arg.Any<int>());
+            _mockPortfolio.DidNotReceive().Add(Arg.Any<string>(), Arg.Any<int>());
         }
 
         [Test]
@@ -59,6 +60,7 @@ namespace AR.Hft.Process.Tests.UnitTests
 
             // Assert
             _mockBroker.Received().Buy("AAPL", 1);
+            _mockPortfolio.Received().Add("AAPL", 1);
         }
 
         [Test]
@@ -80,6 +82,7 @@ namespace AR.Hft.Process.Tests.UnitTests
             // Assert
             _mockBroker.Received().Sell("NOK", 1);
             _trader.Balance.Should().Be(4);
+            _mockPortfolio.Received().Remove("NOK", 1);
         }
 
         [Test]
@@ -87,7 +90,7 @@ namespace AR.Hft.Process.Tests.UnitTests
         {
             // Arrange
             _mockSignal.Assess()
-                       .Returns(new Assessment());
+                       .Returns(new Assessment { Recommendation = -1, Symbol = "NOK" });
 
             // Act
             _trader.Register(_mockSignal);
@@ -96,6 +99,7 @@ namespace AR.Hft.Process.Tests.UnitTests
 
             // Assert
             _mockBroker.DidNotReceive().Sell(Arg.Any<string>(), Arg.Any<int>());
+            _mockPortfolio.DidNotReceive().Remove(Arg.Any<string>(), Arg.Any<int>());
         }
     }
 }

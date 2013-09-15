@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AR.Hft.Process.Domain;
 using FluentAssertions;
 using NUnit.Framework;
@@ -74,6 +75,21 @@ namespace AR.Hft.Process.Tests.UnitTests
             _portfolio.Add("NOK", 1);
             bool result = _portfolio.Has("NOK", 2);
             result.Should().BeFalse();
+        }
+
+        [Test]
+        public void Remove_NotEnoughOwned_ThrowsException()
+        {
+            _portfolio.Invoking(x => x.Remove("NOK", 1))
+                      .ShouldThrow<ArgumentException>();
+        }
+
+        [Test]
+        public void Remove_EnoughOwned_AmountIsSubtracted()
+        {
+            _portfolio.Add("NOK", 1);
+            _portfolio.Remove("NOK", 1);
+            _portfolio.Has("NOK", 1).Should().BeFalse();
         }
     }
 }

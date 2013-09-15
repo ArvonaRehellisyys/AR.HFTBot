@@ -27,15 +27,27 @@ namespace AR.Hft.Process.Domain
         {
             foreach (var stockSignal in _stockSignals)
             {
-                var assesment = stockSignal.Assess();
+                var assessment = stockSignal.Assess();
                 
-                if (assesment.Recommendation > 0)
+                if (assessment.Recommendation > 0)
                 {
-                    Balance -= _stockbroker.Buy(assesment.Symbol, 1);
+                    const int amount = 1;
+                    var price = _stockbroker.GetPrice(assessment.Symbol) * amount;
+                    if (Balance >= price)
+                    {
+                        Balance -= _stockbroker.Buy(assessment.Symbol, amount);
+                        _portfolio.Add(assessment.Symbol, amount);
+                    }
                 }
-                else if (assesment.Recommendation < 0)
+                else if (assessment.Recommendation < 0)
                 {
-                    Balance += _stockbroker.Sell(assesment.Symbol, 1);
+                    const int amount = 1;
+
+                    if (_portfolio.Has(assessment.Symbol, amount))
+                    {
+                        Balance += _stockbroker.Sell(assessment.Symbol, amount);
+                        _portfolio.Remove(assessment.Symbol, amount);
+                    }
                 }
             }
         }
