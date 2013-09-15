@@ -7,7 +7,7 @@ using NUnit.Framework;
 namespace AR.Hft.Process.Tests.Acceptance
 {
     [TestFixture]
-    public class FirstFoo
+    public class FinancialPerformanceTests
     {
         [SetUp]
         public void Init()
@@ -22,7 +22,7 @@ namespace AR.Hft.Process.Tests.Acceptance
 
             var history = new List<StockMessage>
             {
-                new StockMessage() {Symbol = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
+                new StockMessage {Symbol = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
             };
 
             var nokSignal = new StockSignal(history, "NOK");
