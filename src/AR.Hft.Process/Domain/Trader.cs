@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AR.Hft.Process.Domain.Signals;
 
 namespace AR.Hft.Process.Domain
 {

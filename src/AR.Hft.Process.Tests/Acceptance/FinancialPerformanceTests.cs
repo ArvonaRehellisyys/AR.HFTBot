@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using AR.Hft.Process.Domain;
-using NSubstitute;
+using AR.Hft.Process.Domain.Signals;
+using FluentAssertions;
 using NUnit.Framework;
 
 namespace AR.Hft.Process.Tests.Acceptance
@@ -16,38 +17,35 @@ namespace AR.Hft.Process.Tests.Acceptance
         }
 
         [Test]
-        public void Foo()
+        public void RandomSignal()
         {
             var now = new DateTime(2013, 9, 10);
 
             var history = new List<StockMessage>
             {
-                new StockMessage {Symbol = "NOK", Ask = 5.9, Bid = 5.7, Time = now.AddMinutes(-1)}
+                new StockMessage { Symbol = "PACQU", Ask = 24.0, Bid = 13.50, Time = now.AddMinutes(-5) },
+                new StockMessage { Symbol = "PACQU", Ask = 27.84, Bid = 13.50, Time = now.AddMinutes(-4) },
+                new StockMessage { Symbol = "PACQU", Ask = 22.50, Bid = 13.50, Time = now.AddMinutes(-3) },
+                new StockMessage { Symbol = "PACQU", Ask = 17.85, Bid = 13.50, Time = now.AddMinutes(-2) },
+                new StockMessage { Symbol = "PACQU", Ask = 13.79, Bid = 11.00, Time = now.AddMinutes(-1) }
             };
 
-            var nokSignal = new StockSignal(history, "NOK");
-            var jormaSignal = new StockSignal(history, "JORMA");
+            var random = new RandomSignal("PACQU");
 
             var portfolio = new Portfolio();
-            var stockBroker = Substitute.For<IStockbroker>();
+            var stockBroker = new StubStockbroker(history);
             var trader = new Trader(stockBroker, portfolio);
 
-            trader.Register(nokSignal);
-            trader.Register(jormaSignal);
+            trader.Register(random);
 
-            var message = new StockMessage
+            stockBroker.CurrentTime = now.AddMinutes(-5);
+            for (int i = 0; i < 5; i++)
             {
-                Symbol = "NOK",
-                Bid = 6.54,
-                Ask = 6.70,
-                Time = now
-            };
+                stockBroker.CurrentTime = stockBroker.CurrentTime.AddMinutes(1);
+                trader.Trade();
+            }
 
-            history.Add(message);
-
-            trader.Trade();
-
-            stockBroker.Received().Buy("NOK", 1);
+            //trader.Balance.Should().BeGreaterThan(0);
         }
     }
 }

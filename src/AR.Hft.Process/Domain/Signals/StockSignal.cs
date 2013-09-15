@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AR.Hft.Process.Domain
+namespace AR.Hft.Process.Domain.Signals
 {
     public class StockSignal : ISignal
     {
