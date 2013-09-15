@@ -75,6 +75,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Acceptance\Copy of StubStockbroker.cs" />
     <Compile Include="Acceptance\FinancialPerformanceTests.cs" />
     <Compile Include="Acceptance\StubStockbroker.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
