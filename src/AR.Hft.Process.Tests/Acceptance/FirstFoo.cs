@@ -26,14 +26,14 @@ namespace AR.Hft.Process.Tests.Acceptance
             };
 
             var nokSignal = new StockSignal(history, "NOK");
-            var jormaSignal = new StockSignal(history, "JORMA");
+            var fooSignal = new StockSignal(history, "JORMA");
 
             var portfolio = new Portfolio();
             var stockBroker = Substitute.For<IStockbroker>();
             var trader = new Trader(stockBroker, portfolio);
 
             trader.Register(nokSignal);
-            trader.Register(jormaSignal);
+            trader.Register(fooSignal);
 
             var message = new StockMessage
             {

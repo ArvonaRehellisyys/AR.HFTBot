@@ -78,7 +78,9 @@
     <Compile Include="Acceptance\FirstFoo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tools\CsvParser.cs" />
+    <Compile Include="Tools\StockMessageBatch.cs" />
     <Compile Include="Tools\TestsForTools\CsvParserUnitTests.cs" />
+    <Compile Include="Tools\TestsForTools\StockMessageBatchUnitTests.cs" />
     <Compile Include="UnitTests\PortfolioTests.cs" />
     <Compile Include="UnitTests\TraderTests.cs" />
   </ItemGroup>
