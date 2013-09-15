@@ -1,5 +1,5 @@
-﻿using System;
-using AR.Hft.Process.Domain;
+﻿using AR.Hft.Process.Domain;
+using AR.Hft.Process.Domain.Signals;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;
